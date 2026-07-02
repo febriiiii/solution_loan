@@ -198,29 +198,4 @@ Register + KYC ──► NoCIF + cek SLIK ──► dapat Limit ──► Simula
 
 ---
 
-## 11. Poin untuk Presentasi Interview
-
-Highlight yang menunjukkan cara berpikir Solution Engineer bank:
-1. **Tidak hardcode "12jt"** — dibuat kebijakan produk yang configurable (`loan_products`), di-cap 3 lapis. *"Kalau plafon naik jadi Rp25jt, cukup ubah konfigurasi."*
-2. **Pisah identitas (NoCIF) vs akun login** — paham beda data nasabah vs kredensial, dasar pelaporan OJK.
-3. **US-07 di-enforce di level database** (filtered unique index), bukan cuma di aplikasi. *"Pengaman terakhir tetap di data layer."*
-4. **Restrukturisasi model OJK yang benar** — anti-evergreening, kolektibilitas tak direset. Menunjukkan paham regulasi, bukan sekadar CRUD.
-5. **Maker–checker** — sadar kontrol internal bank (pengaju ≠ pemutus).
-6. **Clean Architecture** — komponen generik reusable, hemat biaya produk berikutnya.
-7. **FastAPI dipilih kontekstual** — karena fitur ML-heavy (OCR, face-match, scoring), bukan asal pilih.
-
----
-
-## 12. Struktur Paket
-
-```
-outputs/
-├── README.md                        ← file ini
-├── SDD_PinjamanOnline_v2.docx       ← dokumen utama
-├── SDD_PinjamanOnline_v2.pdf        ← versi PDF
-├── SDD_PinjamanOnline_v2.md         ← sumber markdown
-├── schema_v2_sqlserver.sql          ← skema database (22 tabel)
-└── Diagrams_Editable_v2.zip         ← 12 diagram (mmd/drawio/svg) + panduan
-```
-
-*Disiapkan oleh Tim Solution Engineering — PT. XYZ · 2026*
+*Disiapkan oleh Febri Risnandi — PT. XYZ · 2026*
