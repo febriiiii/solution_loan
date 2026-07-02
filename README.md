@@ -68,13 +68,13 @@ Mobile App / Back-office
         │
    API Gateway (routing · auth · rate limit)
         │
-   ┌────┴─────────────────────────────────────────┐
-   │ Microservices (per bounded-context)           │
+   ┌────┴───────────────────────────────────────────┐
+   │ Microservices (per bounded-context)            │
    │ Identity · KYC · Product · Origination ·       │
    │ Decision Engine · Servicing · Recovery · Notif │
-   └────┬─────────────────────────────────────────┘
+   └────┬───────────────────────────────────────────┘
         │
- PostgreSQL · Redis · Object Storage · Kafka (Event Bus)
+ SQLsrv · Redis · Object Storage · Kafka (Event Bus)
         │
  Integrasi: OCR/Face · SLIK OJK · Payment Gateway · Email/SMS/Push
 ```
