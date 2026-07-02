@@ -145,8 +145,8 @@ Ekstrak zip. Ada 3 format per diagram + `README.md` di dalamnya.
 
 1. Execute `schema_v2_sqlserver.sql` (database jadi)
 2. Di **Database Explorer**, klik kanan database `xyz_lending`
-3. Pilih **Database Diagram** (atau **Reverse Engineer**)
-4. Pilih **semua tabel** → **OK**
+3. Pilih **New SQL** 
+4. insert **query_builder_erd.sql** → **query builder**
 5. ERD otomatis muncul lengkap dengan relasi FK — bisa dirapikan & di-export
 
 ---
