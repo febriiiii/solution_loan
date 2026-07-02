@@ -1,0 +1,28 @@
+flowchart TD
+  classDef p fill:#EAF1FB,stroke:#1E4E8C,color:#0F2A4A;
+  classDef d fill:#FBF3E4,stroke:#C79A3B,color:#5A4413;
+  classDef ok fill:#E6F4EA,stroke:#2E7D46,color:#12401F;
+  classDef no fill:#FBEAEA,stroke:#B23A3A,color:#5A1717;
+
+  A["1. Register + KYC<br/>OCR KTP · face-match"]:::p --> B["Generate / match NoCIF<br/>+ cek SLIK OJK"]:::p
+  B --> C["2. Hitung limit (scoring)<br/>di-cap kebijakan produk"]:::p
+  C --> D["3. Simulasi: nominal & tenor<br/>default = limit & tenor maks"]:::p
+  D --> E["4. Submit + Tanda Tangan Akad"]:::p
+  E --> F{"Ada pinjaman<br/>aktif?"}:::d
+  F -->|Ya| R1["Tolak — HTTP 409"]:::no
+  F -->|Tidak| G{"Decision Engine"}:::d
+  G -->|Reject| R2["REJECTED + notifikasi"]:::no
+  G -->|Refer| H["Review Analyst → Approver"]:::p
+  H --> G
+  G -->|Approve| I["5. Pencairan (disbursement)<br/>+ generate jadwal cicilan"]:::ok
+  I --> J["6. Repayment berjalan"]:::p
+  J --> K{"Pembayaran"}:::d
+  K -->|Penuh & tepat| J
+  K -->|Sebagian| L["PARTIALLY_PAID<br/>sisa jadi tunggakan"]:::d
+  K -->|Telat| M["OVERDUE + denda<br/>DPD naik → Kol 2..5"]:::no
+  L --> J
+  M --> N{"Direstrukturisasi?"}:::d
+  N -->|Ya| O["Restrukturisasi (OJK)<br/>void jadwal lama → jadwal baru"]:::p
+  O --> J
+  N -->|Tidak, macet total| P["WRITTEN_OFF"]:::no
+  J -->|Semua lunas| Q["PAID_OFF"]:::ok

@@ -1,0 +1,60 @@
+erDiagram
+    LOAN_PRODUCTS ||--o{ CREDIT_LIMITS : "mendasari"
+    CUSTOMERS ||--o{ CREDIT_LIMITS : "diberi limit"
+    CUSTOMERS ||--o{ LOAN_APPLICATIONS : "mengajukan"
+    LOAN_PRODUCTS ||--o{ LOAN_APPLICATIONS : "produk"
+    LOAN_APPLICATIONS ||--|| CREDIT_ASSESSMENTS : "dinilai"
+    LOAN_APPLICATIONS ||--o| LOAN_CONSENTS : "disetujui via akad"
+    LOAN_APPLICATIONS ||--o| LOANS : "menghasilkan"
+
+    LOAN_PRODUCTS {
+        uuid product_id PK
+        string name
+        decimal min_amount
+        decimal max_amount "12.000.000"
+        string allowed_tenors "[3,6,9,12]"
+        enum interest_type "FLAT|EFFECTIVE"
+        decimal interest_rate
+        decimal admin_fee_rate
+        decimal penalty_rate
+        bit is_active
+    }
+    CREDIT_LIMITS {
+        uuid limit_id PK
+        uuid customer_id FK
+        uuid product_id FK
+        decimal approved_limit "MIN(score, max_amount)"
+        decimal used_amount
+        enum status "ACTIVE|SUSPENDED"
+        timestamp valid_until
+    }
+    LOAN_APPLICATIONS {
+        uuid application_id PK
+        uuid customer_id FK
+        uuid product_id FK
+        decimal amount "<= approved_limit"
+        int tenor_months "in allowed_tenors"
+        string purpose
+        enum status "DRAFT|SUBMITTED|UNDER_REVIEW|APPROVED|REJECTED|CANCELLED"
+        string decision_reason
+        timestamp submitted_at
+        timestamp decided_at
+    }
+    CREDIT_ASSESSMENTS {
+        uuid assessment_id PK
+        uuid application_id FK
+        int credit_score
+        string risk_grade "A..E"
+        decimal dbr_ratio
+        uuid slik_id FK
+        enum decision "APPROVE|REJECT|REFER"
+        timestamp assessed_at
+    }
+    LOAN_CONSENTS {
+        uuid consent_id PK
+        uuid application_id FK
+        enum type "LOAN_AGREEMENT|RESTRUCTURING"
+        string signature_ref
+        string document_url
+        timestamp signed_at
+    }

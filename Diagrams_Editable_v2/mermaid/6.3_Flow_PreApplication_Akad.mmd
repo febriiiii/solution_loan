@@ -1,0 +1,11 @@
+flowchart LR
+  A([Dashboard]) --> B{Ada pinjaman aktif?}
+  B -->|Ya| Z[Detail Tagihan]
+  B -->|Tidak| C[Form Pengajuan<br/>nominal default = limit<br/>tenor default = maks]
+  C --> D[Simulasi real-time<br/>cicilan·bunga·biaya·total]
+  D --> E{Nominal ≤ limit<br/>& tenor valid?}
+  E -->|Tidak| C
+  E -->|Ya| F[Review Ringkasan]
+  F --> G[Baca & Setujui Akad]
+  G --> H[Tanda Tangan Digital]
+  H --> I([Submit → Diproses])

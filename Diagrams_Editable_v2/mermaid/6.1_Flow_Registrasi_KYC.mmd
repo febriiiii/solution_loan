@@ -1,0 +1,12 @@
+flowchart LR
+  A([Welcome]) --> B[Data Diri<br/>nama·email·telepon]
+  B --> C[Upload KTP + Selfie]
+  C --> D{OCR + face-match<br/>valid?}
+  D -->|Tidak| C
+  D -->|Ya| E{Cek SLIK OJK}
+  E -->|BAD| X([Ditolak dini])
+  E -->|CLEAR/WATCHLIST| F[Verifikasi OTP]
+  F --> G{OTP valid?}
+  G -->|Tidak| F
+  G -->|Ya| H[Buat Password + Biometric]
+  H --> I([NoCIF aktif → Dashboard])

@@ -1,0 +1,90 @@
+erDiagram
+    LOANS ||--o{ DISBURSEMENTS : "dicairkan"
+    LOANS ||--|{ REPAYMENT_SCHEDULES : "dijadwalkan"
+    LOANS ||--o{ PAYMENTS : "menerima"
+    REPAYMENT_SCHEDULES ||--o{ PAYMENTS : "dilunasi"
+    LOANS ||--o{ TRANSACTIONS : "mutasi"
+    LOANS ||--o{ LOAN_RESTRUCTURINGS : "direstrukturisasi"
+    LOAN_RESTRUCTURINGS ||--o{ REPAYMENT_SCHEDULES : "menghasilkan jadwal"
+    LOANS ||--o{ COLLECTION_ACTIVITIES : "ditagih"
+
+    LOANS {
+        uuid loan_id PK
+        uuid application_id FK
+        uuid customer_id FK
+        decimal principal
+        decimal interest_rate
+        int tenor_months
+        decimal monthly_installment
+        decimal outstanding_balance
+        enum status "PENDING_DISBURSEMENT|ACTIVE|OVERDUE|RESTRUCTURED|PAID_OFF|WRITTEN_OFF"
+        enum collectibility "KOL_1..KOL_5"
+        int days_past_due
+        bit is_restructured
+        int restructure_count
+        timestamp disbursed_at
+    }
+    DISBURSEMENTS {
+        uuid disbursement_id PK
+        uuid loan_id FK
+        decimal amount
+        string bank_account_no
+        string gateway_reference
+        enum status "PENDING|PROCESSING|SUCCESS|FAILED"
+        timestamp disbursed_at
+    }
+    REPAYMENT_SCHEDULES {
+        uuid installment_id PK
+        uuid loan_id FK
+        uuid restructuring_id FK
+        int installment_no
+        date due_date
+        decimal amount_due
+        decimal principal_component
+        decimal interest_component
+        decimal penalty_amount
+        decimal paid_amount
+        enum status "PENDING|PARTIALLY_PAID|PAID|OVERDUE|VOIDED"
+        bit is_voided
+    }
+    PAYMENTS {
+        uuid payment_id PK
+        uuid loan_id FK
+        uuid installment_id FK
+        decimal amount
+        decimal alloc_penalty
+        decimal alloc_interest
+        decimal alloc_principal
+        enum method "VA|TRANSFER|QRIS"
+        string idempotency_key UK
+        enum status "PENDING|SUCCESS|FAILED|REVERSED"
+        timestamp paid_at
+    }
+    TRANSACTIONS {
+        uuid transaction_id PK
+        uuid loan_id FK
+        uuid payment_id FK
+        enum type "DISBURSEMENT|REPAYMENT|PENALTY|WAIVER|REVERSAL"
+        decimal amount
+        timestamp created_at
+    }
+    LOAN_RESTRUCTURINGS {
+        uuid restructuring_id PK
+        uuid loan_id FK
+        enum method "TENOR_EXTENSION|RATE_REDUCTION|PRINCIPAL_CUT|INTEREST_CUT|ADD_FACILITY|EQUITY_CONV"
+        int old_tenor
+        int new_tenor
+        decimal old_installment
+        decimal new_installment
+        string old_collectibility
+        uuid approved_by
+        date effective_date
+    }
+    COLLECTION_ACTIVITIES {
+        uuid activity_id PK
+        uuid loan_id FK
+        enum channel "SMS|CALL|FIELD"
+        string result
+        uuid officer_id
+        timestamp created_at
+    }

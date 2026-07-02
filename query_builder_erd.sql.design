@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- Devart (www.devart.com), SQL document design file -->
+<!-- Modifying this generated file will probably render it invalid -->
+<Document>
+  <Properties>
+    <Type>SQL Document Design</Type>
+    <DatabaseProvider>aa8afe9c-7d62-4564-b477-c12e62e0f440</DatabaseProvider>
+    <ProviderVersion>2025.2.109.0</ProviderVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+  </Properties>
+  <Connection>
+    <ConnectionModel>
+      <PropertyValue Name="Database">aa8afe9c-7d62-4564-b477-c12e62e0f440</PropertyValue>
+      <PropertyValue Name="Id">1fd635ad-88e7-4047-bdd3-6ab7b3115622</PropertyValue>
+      <PropertyValue Name="ConnectionString" xml:space="preserve">Data Source=(localdb)\MSSQLLocalDB;Encrypt=False;Integrated Security=False</PropertyValue>
+    </ConnectionModel>
+    <Database>xyz_lending</Database>
+  </Connection>
+  <Views ShowAdditionalViews="False" IsLayoutActiveAttribute="True" MainViewAttribute="Code" MainViewScale="22">
+    <View Name="Design" Visible="True">
+      <Data>
+        <StatementType>Select</StatementType>
+        <ActiveQuery>0</ActiveQuery>
+        <SubQuery Id="0" Open="0" LocationX="-1046.99930238112" LocationY="4.08984102492627" Scale="0.2445083">
+          <PageOptions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <HorizontalOverlap>0</HorizontalOverlap>
+            <VerticalOverlap>0</VerticalOverlap>
+            <TopLeftMargins>
+              <Width>10 mm</Width>
+              <Height>10 mm</Height>
+            </TopLeftMargins>
+            <BottomRightMargins>
+              <Width>10 mm</Width>
+              <Height>10 mm</Height>
+            </BottomRightMargins>
+            <PaperSize>
+              <Width>210 mm</Width>
+              <Height>297 mm</Height>
+            </PaperSize>
+          </PageOptions>
+          <Tables>
+            <Table Name="c" Left="381" Top="1056" Width="221.0916" Height="206" Collapsed="False" />
+            <Table Name="ua" Left="575" Top="423" Width="224.796" Height="206" Collapsed="False" />
+            <Table Name="d" Left="859" Top="433" Width="203.0838" Height="188" Collapsed="False" />
+            <Table Name="bc" Left="851" Top="689" Width="218.0238" Height="170" Collapsed="False" />
+            <Table Name="kyc" Left="281" Top="278" Width="224.0082" Height="188" Collapsed="False" />
+            <Table Name="slik" Left="40" Top="1083" Width="221.3976" Height="152" Collapsed="False" />
+            <Table Name="cl" Left="389" Top="1321" Width="203.9431" Height="188" Collapsed="False" />
+            <Table Name="lp" Left="387" Top="1569" Width="209.3793" Height="206" Collapsed="False" />
+            <Table Name="la" Left="1585" Top="1144" Width="211.2283" Height="224" Collapsed="False" />
+            <Table Name="ca" Left="1589" Top="1427" Width="203.5121" Height="206" Collapsed="False" />
+            <Table Name="slik2" Left="1581" Top="1692" Width="221.3976" Height="152" Collapsed="False" />
+            <Table Name="lcon" Left="1855" Top="1179" Width="203.0838" Height="152" Collapsed="False" />
+            <Table Name="l" Left="1678" Top="631" Width="239.5746" Height="206" Collapsed="False" />
+            <Table Name="disb" Left="1752" Top="896" Width="229.9783" Height="188" Collapsed="False" />
+            <Table Name="rs" Left="2037" Top="541" Width="240.1931" Height="206" Collapsed="False" />
+            <Table Name="p" Left="2042" Top="806" Width="229.9783" Height="206" Collapsed="False" />
+            <Table Name="t" Left="985" Top="990" Width="203.0838" Height="206" Collapsed="False" />
+            <Table Name="lr" Left="1705" Top="306" Width="213.0382" Height="206" Collapsed="False" />
+            <Table Name="col" Left="1413" Top="495" Width="205.2048" Height="152" Collapsed="False" />
+            <Table Name="n" Left="721" Top="919" Width="203.6697" Height="206" Collapsed="False" />
+            <Table Name="approver" Left="1700" Top="40" Width="224.796" Height="206" Collapsed="False" />
+            <Table Name="officer" Left="1128" Top="468" Width="224.796" Height="206" Collapsed="False" />
+            <Table Name="ur" Left="585" Top="273" Width="203.0838" Height="90" Collapsed="False" />
+            <Table Name="r" Left="585" Top="116" Width="203.0838" Height="98" Collapsed="False" />
+          </Tables>
+        </SubQuery>
+      </Data>
+    </View>
+    <View Name="Code" Active="True" Visible="True">
+      <Data />
+    </View>
+    <View Name="Data" Visible="True" />
+    <View Name="Profiler" Visible="False" />
+    <View Name="PivotGrid" Visible="False" />
+  </Views>
+  <LiveProfilingMode Enabled="False" />
+</Document>

@@ -1,0 +1,12 @@
+flowchart LR
+  A([Diproses]) --> B{Keputusan}
+  B -->|Ditolak| C([REJECTED + notifikasi])
+  B -->|Disetujui| D[Pencairan ke rekening]
+  D --> E([ACTIVE + jadwal cicilan])
+  E --> F[Detail Tagihan]
+  F --> G[Bayar Cicilan]
+  G --> H{Jumlah bayar}
+  H -->|Penuh| I([Cicilan lunas])
+  H -->|Sebagian| J[PARTIALLY_PAID<br/>sisa jadi tunggakan]
+  I --> F
+  J --> F

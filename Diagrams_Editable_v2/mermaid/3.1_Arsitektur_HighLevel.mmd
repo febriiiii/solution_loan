@@ -1,0 +1,57 @@
+flowchart TB
+  classDef client fill:#EAF1FB,stroke:#1E4E8C,color:#0F2A4A;
+  classDef edge fill:#FBF3E4,stroke:#C79A3B,color:#5A4413;
+  classDef svc fill:#E6F4EA,stroke:#2E7D46,color:#12401F;
+  classDef data fill:#F0EAFB,stroke:#5E3AA6,color:#2E1A57;
+  classDef ext fill:#FBEAEA,stroke:#B23A3A,color:#5A1717;
+
+  subgraph CLIENT["Client Layer"]
+    MOB["Mobile App (iOS/Android)<br/>Borrower"]
+    BO["Back-office Web<br/>Analyst / Approver / Collection / Admin"]
+  end
+  subgraph EDGE["Edge & Gateway"]
+    GW["API Gateway<br/>Routing · AuthN/RBAC · Rate Limit"]
+  end
+  subgraph APP["Application — Microservices (Clean Arch)"]
+    IDN["Identity & Auth<br/>(CIF, akun, biometric, RBAC)"]
+    KYC["KYC & OCR<br/>(KTP OCR, face-match, SLIK)"]
+    PRD["Product & Limit<br/>(loan_products, credit_limits)"]
+    LOAN["Loan Origination<br/>(application, consent)"]
+    SCORE["Decision Engine<br/>(credit scoring)"]
+    DISB["Disbursement & Billing<br/>(pencairan, jadwal, cicilan)"]
+    REST["Restructuring & Collection<br/>(Kol, restruktur, penagihan)"]
+    NOTIF["Notification<br/>(email · SMS · push)"]
+  end
+  subgraph DATA["Data & Messaging"]
+    PG[("PostgreSQL")]
+    RDS[("Redis")]
+    OBJ[("Object Storage")]
+    MQ[["Event Bus (Kafka)"]]
+    AUD[("Audit Store")]
+  end
+  subgraph EXT["External Integrations"]
+    OCRP["OCR / Face-match Provider"]
+    SLIK["SLIK OJK / Biro Kredit"]
+    PGW["Payment Gateway"]
+    COMM["Email / SMS / Push"]
+  end
+
+  MOB & BO --> GW
+  GW --> IDN & KYC & PRD & LOAN & SCORE & DISB & REST & NOTIF
+  IDN --- PG
+  KYC --- OBJ
+  LOAN --- PG
+  DISB --- PG
+  REST --- PG
+  IDN --- RDS
+  LOAN <--> MQ
+  SCORE <--> MQ
+  DISB <--> MQ
+  REST <--> MQ
+  NOTIF <--> MQ
+  APP -.-> AUD
+  KYC -.-> OCRP
+  KYC -.-> SLIK
+  SCORE -.-> SLIK
+  DISB -.-> PGW
+  NOTIF -.-> COMM

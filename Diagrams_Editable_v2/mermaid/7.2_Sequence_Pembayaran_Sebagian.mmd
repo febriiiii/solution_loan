@@ -1,0 +1,17 @@
+sequenceDiagram
+    autonumber
+    actor U as Nasabah
+    participant APP as Mobile App
+    participant PAY as Servicing
+    participant PGW as Payment Gateway
+    participant DB as PostgreSQL
+
+    U->>APP: Bayar (jumlah < tagihan)
+    APP->>PAY: POST /payments (Idempotency-Key)
+    PAY->>PGW: proses pembayaran
+    PGW-->>PAY: SUCCESS
+    PAY->>PAY: alokasi waterfall (denda→bunga→pokok) (BR-09)
+    PAY->>DB: update schedule = PARTIALLY_PAID
+    PAY->>DB: outstanding_balance -= pokok terbayar
+    PAY->>DB: insert payment (rincian alokasi) + transaction
+    PAY-->>APP: 200 OK (sisa tagihan)

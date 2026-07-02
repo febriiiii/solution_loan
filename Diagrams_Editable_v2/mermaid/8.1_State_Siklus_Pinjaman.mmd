@@ -1,0 +1,22 @@
+stateDiagram-v2
+    direction TB
+    [*] --> Submitted
+    Submitted --> UnderReview
+    UnderReview --> Approved : skor & DBR lolos
+    UnderReview --> Rejected : tidak lolos
+    Rejected --> [*]
+    Approved --> Active : dana cair + jadwal
+    Active --> Active : bayar (penuh/sebagian)
+    Active --> Overdue : lewat jatuh tempo (Kol 2..5)
+    Overdue --> Active : tunggakan dibayar
+    Overdue --> Restructured : restrukturisasi (OJK)
+    Restructured --> Active : jadwal baru berjalan
+    Active --> PaidOff : seluruh cicilan lunas
+    Overdue --> WrittenOff : macet total
+    PaidOff --> [*]
+    WrittenOff --> [*]
+    note right of Active
+        Active / Overdue / Restructured
+        = pinjaman AKTIF → tak boleh
+        ajukan pinjaman baru (US-07)
+    end note

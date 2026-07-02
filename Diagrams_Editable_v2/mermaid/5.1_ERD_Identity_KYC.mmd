@@ -1,0 +1,69 @@
+erDiagram
+    CUSTOMERS ||--o{ USER_ACCOUNTS : "memiliki akun"
+    CUSTOMERS ||--o{ KYC_DOCUMENTS : "mengunggah"
+    CUSTOMERS ||--o{ SLIK_CHECKS : "diperiksa"
+    USER_ACCOUNTS ||--o{ DEVICES : "login dari"
+    USER_ACCOUNTS ||--o{ BIOMETRIC_CREDENTIALS : "mendaftarkan"
+    DEVICES ||--o{ BIOMETRIC_CREDENTIALS : "menyimpan kunci"
+    USER_ACCOUNTS ||--o{ USER_ROLES : "diberi"
+    ROLES ||--o{ USER_ROLES : "dipetakan"
+
+    CUSTOMERS {
+        uuid customer_id PK
+        string no_cif UK "identitas seumur hidup"
+        string nik_ktp UK
+        string full_name
+        date birth_date
+        string address
+        enum kyc_status "PENDING|VERIFIED|REJECTED"
+        timestamp created_at
+    }
+    USER_ACCOUNTS {
+        uuid user_id PK
+        uuid customer_id FK
+        string email UK
+        string phone UK
+        string password_hash
+        enum status "PENDING|ACTIVE|LOCKED"
+        timestamp created_at
+    }
+    DEVICES {
+        uuid device_id PK
+        uuid user_id FK
+        enum platform "IOS|ANDROID"
+        string push_token
+        timestamp last_seen_at
+    }
+    BIOMETRIC_CREDENTIALS {
+        uuid credential_id PK
+        uuid user_id FK
+        uuid device_id FK
+        string public_key
+        timestamp registered_at
+    }
+    ROLES {
+        uuid role_id PK
+        string code UK "BORROWER|ANALYST|APPROVER|COLLECTION|ADMIN"
+        string name
+    }
+    USER_ROLES {
+        uuid user_id FK
+        uuid role_id FK
+    }
+    KYC_DOCUMENTS {
+        uuid document_id PK
+        uuid customer_id FK
+        string ktp_image_url
+        string selfie_image_url
+        enum ocr_status "PENDING|PASSED|FAILED"
+        decimal face_match_score
+        timestamp verified_at
+    }
+    SLIK_CHECKS {
+        uuid slik_id PK
+        uuid customer_id FK
+        string bureau_reference
+        int bureau_score
+        enum result "CLEAR|WATCHLIST|BAD"
+        timestamp checked_at
+    }

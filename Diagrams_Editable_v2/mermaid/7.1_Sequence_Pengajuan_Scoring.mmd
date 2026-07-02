@@ -1,0 +1,40 @@
+sequenceDiagram
+    autonumber
+    actor U as Nasabah
+    participant APP as Mobile App
+    participant GW as API Gateway
+    participant LOAN as Origination
+    participant SCORE as Decision Engine
+    participant SLIK as SLIK OJK
+    participant DISB as Disbursement
+    participant PGW as Payment Gateway
+    participant NOT as Notification
+    participant MQ as Event Bus
+
+    U->>APP: Submit pengajuan + TTD akad
+    APP->>GW: POST /loans/applications
+    GW->>LOAN: forward
+    LOAN->>LOAN: cek pinjaman aktif (BR-05)
+    alt Ada pinjaman aktif
+        LOAN-->>APP: 409 Conflict
+    else Tidak ada
+        LOAN->>LOAN: validasi limit & tenor (BR-04)
+        LOAN->>MQ: publish LoanSubmitted
+        LOAN-->>APP: 202 Accepted (DIPROSES)
+        MQ->>SCORE: konsumsi
+        SCORE->>SLIK: cek riwayat kredit
+        SLIK-->>SCORE: skor & status
+        SCORE->>SCORE: hitung grade + DBR (BR-06)
+        alt APPROVE
+            SCORE->>DISB: buat loan + jadwal
+            DISB->>PGW: cairkan dana
+            PGW-->>DISB: sukses
+            DISB->>MQ: LoanApproved
+        else REFER
+            SCORE->>MQ: NeedManualReview (maker-checker)
+        else REJECT
+            SCORE->>MQ: LoanRejected
+        end
+        MQ->>NOT: konsumsi hasil
+        NOT-->>U: Email & SMS (US-06)
+    end

@@ -1,0 +1,13 @@
+flowchart LR
+  A([Launch]) --> B{Sesi tersimpan?}
+  B -->|Ya| C{Biometric aktif?}
+  B -->|Tidak| D[Login: email+password]
+  C -->|Ya| E[Biometric Prompt]
+  C -->|Tidak| D
+  E --> F{Cocok?}
+  F -->|Tidak/batal| D
+  D --> G{Kredensial benar?}
+  G -->|Salah <5x| D
+  G -->|Gagal 5x| H[Akun terkunci sementara]
+  F -->|Ya| I([Dashboard])
+  G -->|Ya| I
