@@ -52,7 +52,7 @@
 | **SDD_PinjamanOnline_v2.pdf** | Versi PDF dari docx | Preview cepat / lampiran |
 | **SDD_PinjamanOnline_v2.md** | Sumber markdown dokumen | Bila mau edit teks / copy-paste |
 | **schema_v2_sqlserver.sql** | Skema database SQL Server (22 tabel) | Generate database & ERD di dbForge |
-| **Diagrams_Editable_v2.zip** | 12 diagram (format `.mmd`, `.drawio`, `.svg`) + panduan | Edit diagram secara gratis |
+| **Diagrams_Editable_v2** | 12 diagram (format `.mmd`, `.drawio`, `.svg`) + panduan |  diagram |
 | **README.md** | File ini | Penjelasan & panduan proyek |
 
 > Catatan: ada juga versi v1 (sederhana, sesuai soal apa adanya). **Pakai v2** — itu versi final yang sudah setara standar bank.
